@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Useful Shell Scripts</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      color: #333;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      line-height: 1.7;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    code {
+      background: #f0f0f0;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    hr {
+      margin: 40px 0;
+      border: none;
+      border-top: 1px solid #ccc;
+    }
+    .note {
+      font-style: italic;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧰 Useful Shell Scripts / Kullanışlı Bash Scriptler</h1>
+  <p>
+    <strong>EN:</strong> This repository contains simple yet helpful shell scripts which I created to automate small tasks while learning Unix scripting.<br>
+    <strong>TR:</strong> Bu depo, günlük hayatta işe çok da yaramayacak fakat kendimi Unix script üzerinde geliştirmek ve karşılaştığım sorunlardan kurtulmak için geliştirdiğim scriptleri içerir.
+  </p>
+
+  <hr>
+
+  <h2>📜 Included Scripts / Dahil Olan Scriptler</h2>
+
+  <h3>install_script.sh</h3>
+  <p><strong>EN:</strong> Installs one or more scripts to <code>$HOME/Scripts</code>, makes them executable with <code>chmod +x</code>, and adds the folder to your PATH automatically.</p>
+  <p><strong>TR:</strong> Bir veya birden fazla scripti <code>$HOME/Scripts</code> dizinine kurar, <code>chmod +x</code> ile çalıştırılabilir hale getirir ve otomatik olarak PATH'e ekler.</p>
+
+  <p><strong>Usage / Kullanım:</strong></p>
+  <pre>install_script.sh script1.sh script2.sh ...</pre>
+
+  <p class="note">
+    💡 You can pass as many scripts as you like. <br>
+    💡 İstediğiniz kadar script dosyasını aynı anda kurabilirsiniz.
+  </p>
+
+  <p class="note">
+    ✅ <strong>Tip:</strong> Add <code>bash</code> before the command to ensure it works even if not marked as executable: <br>
+    <code>bash install_script.sh script1.sh</code>  
+    <br>🟢 Aynı zamanda başına <code>bash</code> ekleyerek garanti çalıştırabilirsiniz.
+  </p>
+
+  <hr>
+
+  <h3>brave_singletonlock_delete.sh</h3>
+  <p><strong>EN:</strong> Removes the Brave browser's <code>SingletonLock</code> file that sometimes prevents it from launching.</p>
+  <p><strong>TR:</strong> Brave tarayıcısının açılmasını engelleyen <code>SingletonLock</code> dosyasını siler.</p>
+  <pre>brave_singletonlock_delete.sh</pre>
+
+  <hr>
+
+  <h2>📥 How to Download / Nasıl İndirilir</h2>
+
+  <p><strong>Clone the repo / Depoyu klonlayın:</strong></p>
+  <pre>
+git clone https://github.com/erenko147/useful-shell-scripts.git
+cd useful-shell-scripts
+  </pre>
+
+  <p><strong>Run the installer / Kurulum scriptini çalıştırın:</strong></p>
+  <pre>
+install_script.sh brave_singletonlock_delete.sh
+  </pre>
+
+  <p><strong>Download a single script / Tek script indirmek için:</strong></p>
+  <pre>
+wget https://raw.githubusercontent.com/erenko147/useful-shell-scripts/main/install_script.sh
+bash install_script.sh
+  </pre>
+
+  <hr>
+
+  <h2>🧠 PATH Setup / PATH Ayarı (Otomatik)</h2>
+  <p>The installer script adds this line to your <code>.bashrc</code> if not already present:</p>
+  <pre>export PATH="$HOME/Scripts:$PATH"</pre>
+  <p>This allows you to run your scripts globally from any terminal.<br>
+  Böylece scriptleri her yerden terminal ile çalıştırabilirsiniz.</p>
+
+  <hr>
+
+  <h2>🛠️ License / Lisans</h2>
+  <p><strong>MIT License</strong> – free to use, modify, and share.<br>
+  <strong>MIT Lisansı</strong> – kullanmakta, düzenlemekte ve paylaşmakta özgürsünüz.</p>
+
+</body>
+</html>

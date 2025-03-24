@@ -3,94 +3,134 @@
 <head>
   <meta charset="UTF-8">
   <title>Useful Shell Scripts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --accent: #2c3e50;
+      --code-bg: #f5f5f5;
+    }
+    body.dark {
+      --bg: #1e1e1e;
+      --text: #e0e0e0;
+      --accent: #66d9ef;
+      --code-bg: #2d2d2d;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background-color: #fdfdfd;
-      color: #333;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
       max-width: 900px;
       margin: 40px auto;
       padding: 0 20px;
-      line-height: 1.7;
+      transition: all 0.3s ease;
     }
     h1, h2, h3 {
-      color: #2c3e50;
+      color: var(--accent);
     }
     pre {
-      background: #eee;
+      background-color: var(--code-bg);
       padding: 10px;
-      border-radius: 6px;
+      border-radius: 8px;
       overflow-x: auto;
     }
     code {
-      background: #f0f0f0;
+      background: var(--code-bg);
       padding: 2px 4px;
       border-radius: 4px;
     }
     hr {
-      margin: 40px 0;
       border: none;
       border-top: 1px solid #ccc;
+      margin: 40px 0;
     }
     .note {
       font-style: italic;
-      color: #555;
+      color: #888;
+    }
+    .button {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 6px;
+      margin-top: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+    .button:hover {
+      background: #3498db;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      body {
+        padding: 0 10px;
+      }
     }
   </style>
 </head>
 <body>
 
+  <button class="theme-toggle" onclick="document.body.classList.toggle('dark')">
+    <i class="fas fa-adjust"></i> Toggle Theme
+  </button>
+
   <h1>🧰 Useful Shell Scripts / Kullanışlı Bash Scriptler</h1>
   <p>
-    <strong>EN:</strong> This repository contains simple yet helpful shell scripts which I created to automate small tasks while learning Unix scripting.<br>
-    <strong>TR:</strong> Bu depo, günlük hayatta işe çok da yaramayacak fakat kendimi Unix script üzerinde geliştirmek ve karşılaştığım sorunlardan kurtulmak için geliştirdiğim scriptleri içerir.
+    <strong>EN:</strong> Shell scripts I created to automate small tasks while learning Unix scripting.<br>
+    <strong>TR:</strong> Unix script öğrenirken yazdığım küçük otomasyon scriptleri.
   </p>
+
+  <a href="https://github.com/erenko147/useful-shell-scripts" class="button" target="_blank">
+    <i class="fab fa-github"></i> View on GitHub
+  </a>
 
   <hr>
 
   <h2>📜 Included Scripts / Dahil Olan Scriptler</h2>
 
   <h3>install_script.sh</h3>
-  <p><strong>EN:</strong> Installs one or more scripts to <code>$HOME/Scripts</code>, makes them executable with <code>chmod +x</code>, and adds the folder to your PATH automatically.</p>
-  <p><strong>TR:</strong> Bir veya birden fazla scripti <code>$HOME/Scripts</code> dizinine kurar, <code>chmod +x</code> ile çalıştırılabilir hale getirir ve otomatik olarak PATH'e ekler.</p>
-
-  <p><strong>Usage / Kullanım:</strong></p>
+  <p><strong>EN:</strong> Installs to <code>$HOME/Scripts</code>, makes scripts executable, and adds to your PATH via <code>.bashrc</code> or <code>.zshrc</code>.</p>
+  <p><strong>TR:</strong> Scriptleri <code>$HOME/Scripts</code> klasörüne kurar, çalıştırılabilir yapar ve PATH ayarını <code>.bashrc</code> veya <code>.zshrc</code> dosyasına ekler.</p>
   <pre>install_script.sh script1.sh script2.sh ...</pre>
-
   <p class="note">
-    💡 You can pass as many scripts as you like. <br>
-    💡 İstediğiniz kadar script dosyasını aynı anda kurabilirsiniz.
+    ✅ Skips installing if the script already exists in your system PATH<br>
+    ⚠️ Prompts before overwriting existing scripts in <code>~/Scripts</code><br>
+    🛑 Skips copying a file onto itself<br>
+    🔁 PATH is only updated if installation happens<br>
+    🐚 Supports both Bash and Zsh<br>
+    💡 Use <code>bash install_script.sh</code> if unsure
   </p>
-
-  <p class="note">
-    ✅ <strong>Tip:</strong> Add <code>bash</code> before the command to ensure it works even if not marked as executable: <br>
-    <code>bash install_script.sh script1.sh</code>  
-    <br>🟢 Aynı zamanda başına <code>bash</code> ekleyerek garanti çalıştırabilirsiniz.
-  </p>
-
-  <hr>
 
   <h3>brave_singletonlock_delete.sh</h3>
-  <p><strong>EN:</strong> Removes the Brave browser's <code>SingletonLock</code> file that sometimes prevents it from launching.</p>
-  <p><strong>TR:</strong> Brave tarayıcısının açılmasını engelleyen <code>SingletonLock</code> dosyasını siler.</p>
+  <p>Removes Brave’s <code>SingletonLock</code> file to fix launch issues.</p>
   <pre>brave_singletonlock_delete.sh</pre>
 
   <hr>
 
-  <h2>📥 How to Download / Nasıl İndirilir</h2>
-
-  <p><strong>Clone the repo / Depoyu klonlayın:</strong></p>
+  <h2>📥 Installation</h2>
   <pre>
 git clone https://github.com/erenko147/useful-shell-scripts.git
 cd useful-shell-scripts
-  </pre>
-
-  <p><strong>Run the installer / Kurulum scriptini çalıştırın:</strong></p>
-  <pre>
 install_script.sh brave_singletonlock_delete.sh
   </pre>
-
-  <p><strong>Download a single script / Tek script indirmek için:</strong></p>
+  <p>Or download and run manually:</p>
   <pre>
 wget https://raw.githubusercontent.com/erenko147/useful-shell-scripts/main/install_script.sh
 bash install_script.sh
@@ -98,17 +138,20 @@ bash install_script.sh
 
   <hr>
 
-  <h2>🧠 PATH Setup / PATH Ayarı (Otomatik)</h2>
-  <p>The installer script adds this line to your <code>.bashrc</code> if not already present:</p>
-  <pre>export PATH="$HOME/Scripts:$PATH"</pre>
-  <p>This allows you to run your scripts globally from any terminal.<br>
-  Böylece scriptleri her yerden terminal ile çalıştırabilirsiniz.</p>
+  <h2>🧠 PATH Setup</h2>
+  <p>The script appends the following block only if necessary:</p>
+  <pre>
+if [[ ":$PATH:" != *":$HOME/Scripts:"* ]]; then
+    export PATH="$HOME/Scripts:$PATH"
+fi
+  </pre>
+  <p>So you can run scripts globally from any terminal.</p>
 
   <hr>
 
   <h2>🛠️ License / Lisans</h2>
-  <p><strong>MIT License</strong> – free to use, modify, and share.<br>
-  <strong>MIT Lisansı</strong> – kullanmakta, düzenlemekte ve paylaşmakta özgürsünüz.</p>
+  <p><strong>MIT License</strong> – Free to use, modify, and share.<br>
+     <strong>MIT Lisansı</strong> – Kullanmakta, düzenlemekte ve paylaşmakta özgürsünüz.</p>
 
 </body>
 </html>

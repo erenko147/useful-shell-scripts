@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# ---------- Make this script executable ----------
+SCRIPT_PATH="${BASH_SOURCE[0]}"
+if [ ! -x "$SCRIPT_PATH" ]; then
+    echo -e "\033[0;36mMaking script executable...\033[0m"
+    chmod +x "$SCRIPT_PATH"
+    echo -e "\033[0;32mScript is now executable.\033[0m"
+fi
+
 # ---------- Colors ----------
 RED="\033[0;31m"
 GREEN="\033[0;32m"
@@ -89,7 +97,10 @@ for SCRIPT_TO_INSTALL in "$@"; do
     echo -e "${CYAN}Installing:${RESET} $SCRIPT_NAME → $SCRIPTS_DIR"
     cp "$SCRIPT_TO_INSTALL" "$DEST"
     chmod +x "$DEST"
-    echo -e "${GREEN}Success:${RESET} $SCRIPT_NAME is now executable."
+    
+    # Delete the original file after successful installation
+    rm "$SCRIPT_TO_INSTALL"
+    echo -e "${GREEN}Success:${RESET} $SCRIPT_NAME installed and original deleted."
 
     SCRIPT_INSTALLED=true
 done
@@ -132,4 +143,3 @@ fi
 # ---------- Final message to user ----------
 echo -e "${YELLOW}Notice:${RESET} Changes made to ${CYAN}${SHELL_RC}${RESET}."
 echo -e "Please run: ${CYAN}source $SHELL_RC${RESET} or restart your terminal to apply changes."
-

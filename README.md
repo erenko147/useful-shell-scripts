@@ -84,7 +84,10 @@ cd useful-shell-scripts
 ```
 
 Then run / Daha sonra çalıştırın:
+**1**.
 
+
+**2**.
 ```bash
 install_script.sh brave_singletonlock_delete.sh
 ```

@@ -37,9 +37,9 @@ install_script.sh script1.sh script2.sh ...
 > 💡 You can pass as many scripts as you like.  
 > 💡 İstediğiniz kadar betik dosyasını aynı anda kurabilirsiniz.
 
-> ✅ Tip: If you just downloaded the script, you can run it with `bash` for guaranteed execution:  
-> ✅ İpucu: Betiği yeni indirdiyseniz, sorunsuz çalışması için şu şekilde çalıştırabilirsiniz:  
-> `bash install_script.sh script1.sh`
+> ✅ Tip: If you just downloaded the script, you have to first run `bash install_script.sh` for the script to work.
+> ✅ İpucu: Betiği yeni indirdiyseniz, çalışması için ilk önce `bash install_script.sh` komutunu çalıştırmalısınız.  
+> 
 
 ---
 

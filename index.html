@@ -93,8 +93,8 @@
 
   <h1>🧰 Useful Shell Scripts / Kullanışlı Bash Scriptler</h1>
   <p>
-    <strong>EN:</strong> Shell scripts I created to automate small tasks while learning Unix scripting.<br>
-    <strong>TR:</strong> Unix script öğrenirken yazdığım küçük otomasyon scriptleri.
+    <strong>EN:</strong> Simple yet helpful shell scripts I created to automate small tasks while learning Unix scripting.<br>
+    <strong>TR:</strong> Unix betik yazımını öğrenirken küçük görevleri otomatikleştirmek amacıyla oluşturduğum basit ama faydalı betikler.
   </p>
 
   <a href="https://github.com/erenko147/useful-shell-scripts" class="button" target="_blank">
@@ -106,12 +106,12 @@
   <h2>📜 Included Scripts / Dahil Olan Scriptler</h2>
 
   <h3>install_script.sh</h3>
-  <p><strong>EN:</strong> Installs to <code>$HOME/Scripts</code>, makes scripts executable, and adds to your PATH via <code>.bashrc</code> or <code>.zshrc</code>.</p>
-  <p><strong>TR:</strong> Scriptleri <code>$HOME/Scripts</code> klasörüne kurar, çalıştırılabilir yapar ve PATH ayarını <code>.bashrc</code> veya <code>.zshrc</code> dosyasına ekler.</p>
+  <p><strong>EN:</strong> Installs one or more scripts to <code>$HOME/Scripts</code>, makes them executable with <code>chmod +x</code>, and adds the folder to your PATH via <code>.bashrc</code> or <code>.zshrc</code>, depending on your shell.</p>
+  <p><strong>TR:</strong> Bir veya birden fazla betiği <code>$HOME/Scripts</code> dizinine kurar, <code>chmod +x</code> ile çalıştırılabilir hale getirir ve kullandığınız kabuğa bağlı olarak <code>.bashrc</code> veya <code>.zshrc</code> dosyanıza bu dizini PATH olarak ekler.</p>
   <pre>install_script.sh script1.sh script2.sh ...</pre>
   <p class="note">
-    ✅ Skips installing if the script already exists in your system PATH<br>
-    ⚠️ Prompts before overwriting existing scripts in <code>~/Scripts</code><br>
+    ❗ Skips installing if the script already exists in your system PATH<br>
+    🔄 Prompts before overwriting existing scripts in <code>~/Scripts</code><br>
     🛑 Skips copying a file onto itself<br>
     🔁 PATH is only updated if installation happens<br>
     🐚 Supports both Bash and Zsh<br>
@@ -119,33 +119,73 @@
   </p>
 
   <h3>brave_singletonlock_delete.sh</h3>
-  <p>Removes Brave’s <code>SingletonLock</code> file to fix launch issues.</p>
+  <p><strong>EN:</strong> Removes the Brave browser lock file (<code>SingletonLock</code>) that, when closed improperly, prevents Brave from opening.</p>
+  <p><strong>TR:</strong> Hatalı bir şekilde uygulamadan çıkıldığında Brave tarayıcısının açılmasını engelleyen <code>SingletonLock</code> adlı kilit dosyasını siler.</p>
   <pre>brave_singletonlock_delete.sh</pre>
+
+  <h3>travel_charge.sh</h3>
+  <p><strong>EN:</strong> This script temporarily sets your laptop battery to charge to 100% instead of the usual 80% limit, giving you maximum battery capacity for travel or extended unplugged use.</p>
+  <p><strong>TR:</strong> Bu betik, seyahat veya uzun süre prizden bağımsız kullanım için maksimum pil kapasitesi sağlamak amacıyla laptop pilinizi geçici olarak normal %80 sınırı yerine %100'e kadar şarj edilecek şekilde ayarlar.</p>
+  <pre>travel_charge.sh</pre>
+  <p class="note">
+    ⚠️ <strong>Note:</strong> This script only works on laptops that support battery charge thresholds through sysfs (like Huawei laptops, some ThinkPads, etc.) - it won't work on all laptop brands.<br>
+    ⚠️ <strong>Not:</strong> Bu betik sadece sysfs üzerinden pil şarj eşiklerini destekleyen laptoplarda çalışır (Huawei ve bazı ThinkPad'ler gibi) - tüm laptop markalarında çalışmaz.
+  </p>
 
   <hr>
 
-  <h2>📥 Installation</h2>
+  <h2>📥 Installation / Kurulum</h2>
+  
+  <h3>Clone the repository / Depoyu klonlayın:</h3>
   <pre>
 git clone https://github.com/erenko147/useful-shell-scripts.git
 cd useful-shell-scripts
-install_script.sh brave_singletonlock_delete.sh
+install_script.sh brave_singletonlock_delete.sh travel_charge.sh
   </pre>
-  <p>Or download and run manually:</p>
+
+  <h3>Or download and run manually / Ya da manuel indirip çalıştırın:</h3>
+  
+  <p><strong>With wget:</strong></p>
   <pre>
 wget https://raw.githubusercontent.com/erenko147/useful-shell-scripts/main/install_script.sh
 bash install_script.sh
   </pre>
 
+  <p><strong>With curl:</strong></p>
+  <pre>
+curl -o install_script.sh https://raw.githubusercontent.com/erenko147/useful-shell-scripts/main/install_script.sh
+bash install_script.sh
+  </pre>
+
+  <p><strong>Or run directly without saving (curl only):</strong></p>
+  <pre>
+curl -s https://raw.githubusercontent.com/erenko147/useful-shell-scripts/main/install_script.sh | bash
+  </pre>
+
+  <p class="note">
+    <strong>EN:</strong> If you don't download install_script.sh you will have to manually manage your scripts' whereabouts and their permissions.<br>
+    <strong>TR:</strong> Eğer install_script.sh dosyasını indirmezseniz, betiklerinizin yerini ve izinlerini manuel olarak yönetmeniz gerekecektir.
+  </p>
+
   <hr>
 
-  <h2>🧠 PATH Setup</h2>
-  <p>The script appends the following block only if necessary:</p>
+  <h2>🧠 PATH Setup / PATH Ayarı</h2>
+  <p><strong>EN:</strong> The script adds the following block to your <code>.bashrc</code> or <code>.zshrc</code> file only if it doesn't already exist:</p>
+  <p><strong>TR:</strong> Betik, aşağıdaki satırları <code>.bashrc</code> veya <code>.zshrc</code> dosyanıza sadece daha önce eklenmemişse otomatik olarak ekler:</p>
   <pre>
+# Add custom scripts path
 if [[ ":$PATH:" != *":$HOME/Scripts:"* ]]; then
     export PATH="$HOME/Scripts:$PATH"
 fi
   </pre>
-  <p>So you can run scripts globally from any terminal.</p>
+  <p>
+    <strong>EN:</strong> This allows you to run your scripts globally from any terminal.<br>
+    <strong>TR:</strong> Bu sayede betiklerinizi terminalin herhangi bir yerinden çalıştırabilirsiniz.
+  </p>
+  <p class="note">
+    <strong>EN:</strong> If no supported shell config file is found, the script will warn you and print the block to be added manually.<br>
+    <strong>TR:</strong> Eğer desteklenen bir shell yapılandırma dosyası bulunamazsa, betik sizi uyarır ve manuel eklemeniz gereken satırları gösterir.
+  </p>
 
   <hr>
 

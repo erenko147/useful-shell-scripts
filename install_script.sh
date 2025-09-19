@@ -67,8 +67,12 @@ for SCRIPT_TO_INSTALL in "$@"; do
     # Prevent copying file over itself
     if [ "$SCRIPT_TO_INSTALL" = "$DEST" ]; then
         echo -e "${YELLOW}Notice:${RESET} '$SCRIPT_NAME' is already in $SCRIPTS_DIR. Skipping copy."
-        chmod +x "$DEST"
-        echo -e "${GREEN}Checked:${RESET} Marked as executable."
+        if [ ! -x "$DEST" ]; then
+            chmod +x "$DEST"
+            echo -e "${GREEN}Checked:${RESET} Marked as executable."
+        else
+            echo -e "${GREEN}Checked:${RESET} Already executable."
+        fi
         SCRIPT_INSTALLED=true
         continue
     fi
@@ -96,11 +100,18 @@ for SCRIPT_TO_INSTALL in "$@"; do
 
     echo -e "${CYAN}Installing:${RESET} $SCRIPT_NAME → $SCRIPTS_DIR"
     cp "$SCRIPT_TO_INSTALL" "$DEST"
-    chmod +x "$DEST"
+    
+    # Make executable only if not already executable
+    if [ ! -x "$DEST" ]; then
+        chmod +x "$DEST"
+        echo -e "${GREEN}Success:${RESET} $SCRIPT_NAME installed and made executable."
+    else
+        echo -e "${GREEN}Success:${RESET} $SCRIPT_NAME installed (already executable)."
+    fi
     
     # Delete the original file after successful installation
     rm "$SCRIPT_TO_INSTALL"
-    echo -e "${GREEN}Success:${RESET} $SCRIPT_NAME installed and original deleted."
+    echo -e "${CYAN}Cleanup:${RESET} Original file deleted."
 
     SCRIPT_INSTALLED=true
 done
